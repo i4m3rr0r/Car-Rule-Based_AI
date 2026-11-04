@@ -5,7 +5,7 @@ from baseline import baselineClassify
 
 from accuracy import *
 
-from rules import *
+from rules import classify
 
 #Defining columns as a constant
 COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classification']
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     
     #carsSummary(cars)
     
-    #two lists, one to hold the ai's predictions, one to be the actual classes
+    #three lists, one to hold the ai's predictions, one to be the actual classes
     rulePredictions = []
     rulesMatched = []   
     actualClassifications = []
@@ -55,6 +55,7 @@ if __name__ == '__main__':
         rulePredictions.append(classification)
         
         rulesMatched.append(ruleName)
+    '''
     
     accuracy = evaluateAccuracy(actualClassifications, rulePredictions)
     
@@ -63,5 +64,24 @@ if __name__ == '__main__':
     matrix = createConfusionMatrix(actualClassifications, rulePredictions, CLASSIFICATION_VALUES)
     
     print(matrix)
+    '''
+    # Debugging
+    
+    cars['predicted'] = rulePredictions
+    
+    mistakes = cars[(cars['classification'] == 'vgood') & (cars['predicted'] == 'acc')]
+    
+    print(mistakes['lug_boot'].value_counts())
+    print('\n')
+    print(mistakes['safety'].value_counts())
+    print('\n')
+    print(mistakes['maint'].value_counts())
+    print('\n')
+    print(mistakes['buying'].value_counts())
+    print('\n')
+    print(mistakes['doors'].value_counts())
+    print('\n')
+    print(mistakes['persons'].value_counts())
+
     
     

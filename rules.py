@@ -2,7 +2,13 @@
 
 RULES = [
     {'name': 'R1 Unsafe', 'if': {'safety': ['low']}, 'then': 'unacc'},
-    {'name': 'R2 Not enough seats', 'if': {'persons': ['2']}, 'then':'unacc'} 
+    {'name': 'R2 Not enough seats', 'if': {'persons': ['2']}, 'then':'unacc'}, 
+    {'name': 'R3 Very high maintenance with high or very high buying price', 'if': {'maint': ['vhigh'], 'buying': ['vhigh', 'high']}, 'then':'unacc'},
+    {'name': 'R4 High maintenence with very high price', 'if': {'maint': ['high'], 'buying': ['vhigh']}, 'then':'unacc'},
+    {'name': 'R5 High or very high buying cost, lug boot is too small, and safety is medium', 'if': {'buying': ['vhigh', 'high'], 'lug_boot': ['small'], 'safety': ['med']}, 'then':'unacc'},
+    {'name': 'R6 Very high maintenance cost, lug boot is too small, and safety is medium', 'if': {'maint': ['vhigh'], 'lug_boot': ['small'], 'safety': ['med']}, 'then':'unacc'},
+    
+    {'name': 'R7 '}
 ]
 
 DEFAULT = 'acc'
