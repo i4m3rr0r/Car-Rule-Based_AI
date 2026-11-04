@@ -10,7 +10,14 @@ RULES = [
     {'name': 'R7 Vgood car', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['big'], 'safety': ['high']}, 'then': 'vgood'},
     {'name': 'R8 Cheap to buy, high maintenance, big boot and high safety', 'if': {'buying': ['low'], 'maint': ['high'], 'lug_boot': ['big'], 'safety': ['high']}, 'then': 'vgood'},
     {'name': 'R9 Low or medium costs, medium boot, high safety and 4+ doors', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['high'], 'doors': ['4', '5more']}, 'then': 'vgood'},
-    {'name': 'R10 Low or medium costs, medium boot, 3 doors, seats more than 4, high safety', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['high'], 'doors': ['3'], 'persons': ['more']}, 'then': 'vgood'}
+    {'name': 'R10 Low or medium costs, medium boot, 3 doors, seats more than 4, high safety', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['high'], 'doors': ['3'], 'persons': ['more']}, 'then': 'vgood'},
+    {'name': 'R10 Medium costs', 'if': {'buying': ['med'], 'maint': ['med']}, 'then': 'acc'},
+    {'name': 'R12 Low or medium costs, big boot, medium safety', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['big'], 'safety': ['med']}, 'then': 'good'},
+    {'name': 'R13 Low or medium costs, medium boot, high safety', 'if': {'buying': ['med', 'low'], 'maint':['med', 'low'], 'lug_boot': ['med'], 'safety': ['high']}, 'then': 'good'},
+    {'name': 'R14 2 doors, seats more than 4, small boot', 'if': {'doors': ['2'], 'persons': ['more'], 'lug_boot': ['small']}, 'then': 'unacc'},
+    {'name': 'R15 Low or medium costs, small boot, high safety', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['small'], 'safety': ['high']}, 'then': 'good'},
+    {'name': 'R16 Low or medium costs, medium boot, medium safety, 4+ doors', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['med'], 'doors': ['4', '5more']}, 'then': 'good'},
+    {'name': 'R17 Low or medium costs, medium boot, medium safety, 3 doors, seats more than 4', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['med'], 'doors': ['3'], 'persons': ['more']}, 'then': 'good'}
     
 ]
 

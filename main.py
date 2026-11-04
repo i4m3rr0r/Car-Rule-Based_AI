@@ -56,7 +56,7 @@ if __name__ == '__main__':
         
         rulesMatched.append(ruleName)
     
-    '''
+    
     accuracy = evaluateAccuracy(actualClassifications, rulePredictions)
     
     print(f'The accuracy of this test is {accuracy:.1f}%')
@@ -64,10 +64,10 @@ if __name__ == '__main__':
     matrix = createConfusionMatrix(actualClassifications, rulePredictions, CLASSIFICATION_VALUES)
     
     print(matrix)
-    '''
+    
     
     # Debugging
-    
+    '''
     cars['predicted'] = rulePredictions
     
     mistakes = cars[(cars['classification'] == 'good') & (cars['predicted'] == 'acc')]
@@ -84,5 +84,7 @@ if __name__ == '__main__':
     print('\n')
     print(mistakes['persons'].value_counts())
     
+    print(pd.crosstab(mistakes['safety'], mistakes['lug_boot']))
+    '''
     
     
