@@ -55,8 +55,8 @@ if __name__ == '__main__':
         rulePredictions.append(classification)
         
         rulesMatched.append(ruleName)
-    '''
     
+    '''
     accuracy = evaluateAccuracy(actualClassifications, rulePredictions)
     
     print(f'The accuracy of this test is {accuracy:.1f}%')
@@ -65,11 +65,12 @@ if __name__ == '__main__':
     
     print(matrix)
     '''
+    
     # Debugging
     
     cars['predicted'] = rulePredictions
     
-    mistakes = cars[(cars['classification'] == 'vgood') & (cars['predicted'] == 'acc')]
+    mistakes = cars[(cars['classification'] == 'good') & (cars['predicted'] == 'acc')]
     
     print(mistakes['lug_boot'].value_counts())
     print('\n')
@@ -82,6 +83,6 @@ if __name__ == '__main__':
     print(mistakes['doors'].value_counts())
     print('\n')
     print(mistakes['persons'].value_counts())
-
+    
     
     

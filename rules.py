@@ -7,8 +7,11 @@ RULES = [
     {'name': 'R4 High maintenence with very high price', 'if': {'maint': ['high'], 'buying': ['vhigh']}, 'then':'unacc'},
     {'name': 'R5 High or very high buying cost, lug boot is too small, and safety is medium', 'if': {'buying': ['vhigh', 'high'], 'lug_boot': ['small'], 'safety': ['med']}, 'then':'unacc'},
     {'name': 'R6 Very high maintenance cost, lug boot is too small, and safety is medium', 'if': {'maint': ['vhigh'], 'lug_boot': ['small'], 'safety': ['med']}, 'then':'unacc'},
+    {'name': 'R7 Vgood car', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['big'], 'safety': ['high']}, 'then': 'vgood'},
+    {'name': 'R8 Cheap to buy, high maintenance, big boot and high safety', 'if': {'buying': ['low'], 'maint': ['high'], 'lug_boot': ['big'], 'safety': ['high']}, 'then': 'vgood'},
+    {'name': 'R9 Low or medium costs, medium boot, high safety and 4+ doors', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['high'], 'doors': ['4', '5more']}, 'then': 'vgood'},
+    {'name': 'R10 Low or medium costs, medium boot, 3 doors, seats more than 4, high safety', 'if': {'buying': ['med', 'low'], 'maint': ['med', 'low'], 'lug_boot': ['med'], 'safety': ['high'], 'doors': ['3'], 'persons': ['more']}, 'then': 'vgood'}
     
-    {'name': 'R7 '}
 ]
 
 DEFAULT = 'acc'
@@ -29,9 +32,4 @@ def classify(car):
     return DEFAULT, 'default'
 
  
-testCar = {"buying": "low", "maint": "low", "doors": "4",
-            "persons": "2", "lug_boot": "big", "safety": "high"}
-
-
-print(classify(testCar))
 
