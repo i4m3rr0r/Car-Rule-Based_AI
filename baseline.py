@@ -1,4 +1,4 @@
-def baselineClassify(carData):
+def baselineClassify():
     
     classification = 'unacc'
     

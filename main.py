@@ -5,6 +5,8 @@ from baseline import baselineClassify
 
 from accuracy import *
 
+from rules import *
+
 #Defining columns as a constant
 COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classification']
 
@@ -38,22 +40,27 @@ if __name__ == '__main__':
     #carsSummary(cars)
     
     #two lists, one to hold the ai's predictions, one to be the actual classes
-    predictions = []
+    rulePredictions = []
+    rulesMatched = []   
     actualClassifications = []
     
     for _, carRow in cars.iterrows():  
         
+        # Append actual classifications to list
         actualClassifications.append(carRow['classification'])
         
-        classification = baselineClassify(carRow)
+        #append the Ais classifications to a new list
+        classification, ruleName = classify(carRow)
         
-        predictions.append(classification)
+        rulePredictions.append(classification)
+        
+        rulesMatched.append(ruleName)
     
-    accuracy = evaluateAccuracy(actualClassifications, predictions)
+    accuracy = evaluateAccuracy(actualClassifications, rulePredictions)
     
     print(f'The accuracy of this test is {accuracy:.1f}%')
     
-    matrix = createConfusionMatrix(actualClassifications, predictions, CLASSIFICATION_VALUES)
+    matrix = createConfusionMatrix(actualClassifications, rulePredictions, CLASSIFICATION_VALUES)
     
     print(matrix)
     

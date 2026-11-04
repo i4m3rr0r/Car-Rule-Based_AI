@@ -5,6 +5,8 @@ RULES = [
     {'name': 'R2 Not enough seats', 'if': {'persons': ['2']}, 'then':'unacc'} 
 ]
 
+DEFAULT = 'acc'
+
 #Matching the rules to the car
 def ruleMatches(car, conditions):
     for feature, allowed in conditions.items():
@@ -14,9 +16,16 @@ def ruleMatches(car, conditions):
     return True
 
 
+def classify(car):
+    for rule in RULES:
+        if ruleMatches(car, rule['if']):
+            return rule['then'], rule['name']
+    return DEFAULT, 'default'
+
+ 
 testCar = {"buying": "low", "maint": "low", "doors": "4",
-            "persons": "4", "lug_boot": "big", "safety": "low"}
+            "persons": "2", "lug_boot": "big", "safety": "high"}
 
 
-print(ruleMatches(testCar, RULES[0]['if']))
-print(ruleMatches(testCar, RULES[1]['if']))
+print(classify(testCar))
+
