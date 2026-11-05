@@ -1,9 +1,10 @@
-#Loads the car evaluation dataset, and creates a summary
+#Runs the baseline and rule-based system on the car dataset and prints the results
+
 import pandas as pd
 
 from baseline import baselineClassify 
 
-from accuracy import *
+from accuracy import evaluateAccuracy, createConfusionMatrix, classMetrics
 
 from rules import classify
 
@@ -33,13 +34,38 @@ def carsSummary(cars):
     print(pd.crosstab(cars["safety"], cars["classification"]))
     
 
+def printResults(name, actual, predicted):
+    """Print accuracy, confusion matrix and per-class metrics for one system."""
+    print(f'\n===== {name} =====')
+    accuracy = evaluateAccuracy(actual, predicted)
+    print(f'Accuracy: {accuracy:.1f}%')
+    matrix = createConfusionMatrix(actual, predicted, CLASSIFICATION_VALUES)
+    print(matrix)
+    metrics = classMetrics(matrix, CLASSIFICATION_VALUES)
+    print(metrics.round(2))
+    print(f"Macro-F1: {metrics['f1'].mean():.2f}")
+
+def analyseMistakes(cars, predictions, actualClass, predictedClass='acc'):
+    # Improved with help from Claude (Anthropic)
+    # Prompt: Help me with creating function that shows what the incorrect classifications have in common. 
+    
+    """Show what the cars the system gets wrong have in common.
+    Example: actualClass='vgood' looks at vgood cars that were wrongly predicted as acc."""
+    mistakes = cars[(cars['classification'] == actualClass) & (pd.Series(predictions) == predictedClass)]
+
+    print(f'\n===== {len(mistakes)} {actualClass} cars predicted as {predictedClass} =====')
+    for feature in COLUMNS[:-1]:          # every column except 'classification'
+        print()
+        print(mistakes[feature].value_counts().to_string())
+
 if __name__ == '__main__':
     
     cars = loadData("data/car.data")
     
     #carsSummary(cars)
     
-    #three lists, one to hold the ai's predictions, one to be the actual classes
+    #four lists, one to hold baseline prediction,  one for the ai's predictions, one for the name of the rule triggered, and one to be the actual classes
+    baselinePredictions = []
     rulePredictions = []
     rulesMatched = []   
     actualClassifications = []
@@ -49,6 +75,9 @@ if __name__ == '__main__':
         # Append actual classifications to list
         actualClassifications.append(carRow['classification'])
         
+        # Make baseline predictions
+        baselinePredictions.append(baselineClassify(carRow))
+        
         #append the Ais classifications to a new list
         classification, ruleName = classify(carRow)
         
@@ -57,34 +86,21 @@ if __name__ == '__main__':
         rulesMatched.append(ruleName)
     
     
-    accuracy = evaluateAccuracy(actualClassifications, rulePredictions)
+    printResults('Baseline (always unacc)', actualClassifications, baselinePredictions)
+    printResults('Rule-based system', actualClassifications, rulePredictions)
     
-    print(f'The accuracy of this test is {accuracy:.1f}%')
-    
-    matrix = createConfusionMatrix(actualClassifications, rulePredictions, CLASSIFICATION_VALUES)
-    
-    print(matrix)
+    # Used during development to find new rules, e.g 5 vgood cars still missed:
+    # analyseMistakes(cars, rulePredictions, 'vgood')
     
     
-    # Debugging
-    '''
-    cars['predicted'] = rulePredictions
+    #Developed with help from Clause (Anthropic).
+    # Prompt: how do I see how many cars each rule handles
+    # Rule coverage: how many cars each rule handled, and their real classes
+     
+    print('\n===== Rule coverage =====')
+    print(pd.crosstab(pd.Series(rulesMatched, name='rule'),
+                      pd.Series(actualClassifications, name='actual')))
     
-    mistakes = cars[(cars['classification'] == 'good') & (cars['predicted'] == 'acc')]
     
-    print(mistakes['lug_boot'].value_counts())
-    print('\n')
-    print(mistakes['safety'].value_counts())
-    print('\n')
-    print(mistakes['maint'].value_counts())
-    print('\n')
-    print(mistakes['buying'].value_counts())
-    print('\n')
-    print(mistakes['doors'].value_counts())
-    print('\n')
-    print(mistakes['persons'].value_counts())
-    
-    print(pd.crosstab(mistakes['safety'], mistakes['lug_boot']))
-    '''
     
     
