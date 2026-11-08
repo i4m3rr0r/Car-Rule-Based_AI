@@ -1,4 +1,4 @@
-#Runs the baseline and rule-based system on the car dataset and prints the results
+# Runs the baseline and rule-based system on the car dataset and prints the results
 
 import pandas as pd
 
@@ -8,13 +8,13 @@ from accuracy import evaluateAccuracy, createConfusionMatrix, classMetrics
 
 from rules import classify
 
-#Defining columns as a constant
+# Defining columns as a constant
 COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classification']
 
-#Class values as constants for the confusion matrix
+# Class values as constants for the confusion matrix
 CLASSIFICATION_VALUES = ['unacc', 'acc', 'good', 'vgood']
 
-#Data file has no headers, so here we load the file and initialise column names ourselves
+# Data file has no headers, so here we load the file and initialise column names ourselves
 def loadData(path):
     #Read car data into pandas
     

@@ -1,5 +1,6 @@
-#defining the rules as a list of dictionaries so I can have key:value pairings.
+#Defining the rules as a list of dictionaries so I can have key:value pairings.
 
+# List of rules, started with the highest priority one, going to more specific
 RULES = [
     {'name': 'R1 Unsafe', 'if': {'safety': ['low']}, 'then': 'unacc'},
     {'name': 'R2 Not enough seats', 'if': {'persons': ['2']}, 'then':'unacc'}, 
@@ -23,7 +24,7 @@ RULES = [
 
 DEFAULT = 'acc'
 
-#Matching the rules to the car
+# Matching the rules to the car
 def ruleMatches(car, conditions):
     for feature, allowed in conditions.items():
         if car[feature] not in allowed:
@@ -31,7 +32,7 @@ def ruleMatches(car, conditions):
     
     return True
 
-
+# Iterate through rules to classify
 def classify(car):
     for rule in RULES:
         if ruleMatches(car, rule['if']):

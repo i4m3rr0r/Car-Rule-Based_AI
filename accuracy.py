@@ -1,5 +1,6 @@
 import pandas as pd
-#function to check accuracy of ai
+
+# Function to check accuracy of ai
 
 def evaluateAccuracy(actual, predicted):
     correct = 0
@@ -13,7 +14,7 @@ def evaluateAccuracy(actual, predicted):
     return accuracy
 
 
-#confusion matrix helps visualise 
+# Confusion matrix helps visualise 
 def createConfusionMatrix(actual, predicted, classes):
     
     matrix = pd.crosstab(actual, predicted, rownames=['actual'], colnames=['predicted'])
