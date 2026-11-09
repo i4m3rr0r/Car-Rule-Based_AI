@@ -1,6 +1,6 @@
 import pandas as pd
 
-# Function to check accuracy of ai
+''' Function to check base accuracy of the AI '''
 
 def evaluateAccuracy(actual, predicted):
     correct = 0
@@ -14,7 +14,7 @@ def evaluateAccuracy(actual, predicted):
     return accuracy
 
 
-# Confusion matrix helps visualise 
+''' Confusion matrix helps visualise, and check how accurate the AI is across all classes '''
 def createConfusionMatrix(actual, predicted, classes):
     
     matrix = pd.crosstab(actual, predicted, rownames=['actual'], colnames=['predicted'])
@@ -27,13 +27,13 @@ def createConfusionMatrix(actual, predicted, classes):
 # Prompt: 'help me write a function to calculate precision, recall and F1 for each class from the confusion matrix
 
 def classMetrics(matrix, classes):
-    """Work out precision, recall and F1 for each class from the confusion matrix."""
+    # Work out precision, recall and F1 for each class from the confusion matrix.
     results = []
 
     for cls in classes:
-        correct = matrix.loc[cls, cls]       # diagonal: said cls and was right
-        saidIt = matrix[cls].sum()           # column total: every time the system said cls
-        reallyIs = matrix.loc[cls].sum()     # row total: every car that really is cls
+        correct = matrix.loc[cls, cls]       # Diagonal: said cls and was right
+        saidIt = matrix[cls].sum()           # Column total: every time the system said cls
+        reallyIs = matrix.loc[cls].sum()     # Row total: every car that really is cls
 
         # Check for zero first, so classes that are never predicted don't crash it
         precision = correct / saidIt if saidIt > 0 else 0

@@ -1,4 +1,4 @@
-# Runs the baseline and rule-based system on the car dataset and prints the results
+''' Runs the baseline and rule-based system on the car dataset and prints the results '''
 
 import pandas as pd
 
@@ -14,11 +14,13 @@ COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classif
 # Class values as constants for the confusion matrix
 CLASSIFICATION_VALUES = ['unacc', 'acc', 'good', 'vgood']
 
-# Data file has no headers, so here we load the file and initialise column names ourselves
+''' Data file has no headers, so here we load the file and initialise column names ourselves '''
 def loadData(path):
     #Read car data into pandas
     
     return pd.read_csv(path, header = None, names=COLUMNS)
+
+''' Used for testing '''
 
 def carsSummary(cars):
     #rows + columns count
@@ -34,8 +36,8 @@ def carsSummary(cars):
     print(pd.crosstab(cars["safety"], cars["classification"]))
     
 
+""" Print accuracy, confusion matrix and per-class metrics """
 def printResults(name, actual, predicted):
-    """Print accuracy, confusion matrix and per-class metrics for one system."""
     print(f'\n===== {name} =====')
     accuracy = evaluateAccuracy(actual, predicted)
     print(f'Accuracy: {accuracy:.1f}%')
@@ -45,12 +47,12 @@ def printResults(name, actual, predicted):
     print(metrics.round(2))
     print(f"Macro-F1: {metrics['f1'].mean():.2f}")
 
+
+""" Show what the cars the system gets wrong have in common. Example: actualClass='vgood' looks at vgood cars that were wrongly predicted as acc """
 def analyseMistakes(cars, predictions, actualClass, predictedClass='acc'):
     # Improved with help from Claude (Anthropic)
     # Prompt: Help me with creating function that shows what the incorrect classifications have in common. 
     
-    """Show what the cars the system gets wrong have in common.
-    Example: actualClass='vgood' looks at vgood cars that were wrongly predicted as acc."""
     mistakes = cars[(cars['classification'] == actualClass) & (pd.Series(predictions) == predictedClass)]
 
     print(f'\n===== {len(mistakes)} {actualClass} cars predicted as {predictedClass} =====')
@@ -62,9 +64,9 @@ if __name__ == '__main__':
     
     cars = loadData("data/car.data")
     
-    #carsSummary(cars)
+    # carsSummary(cars)
     
-    #four lists, one to hold baseline prediction,  one for the ai's predictions, one for the name of the rule triggered, and one to be the actual classes
+    # Four lists, one to hold baseline prediction,  one for the ai's predictions, one for the name of the rule triggered, and one to be the actual classes
     baselinePredictions = []
     rulePredictions = []
     rulesMatched = []   
@@ -93,7 +95,7 @@ if __name__ == '__main__':
     # analyseMistakes(cars, rulePredictions, 'vgood')
     
     
-    #Developed with help from Clause (Anthropic).
+    # Developed with help from Claude (Anthropic).
     # Prompt: how do I see how many cars each rule handles
     # Rule coverage: how many cars each rule handled, and their real classes
      
