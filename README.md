@@ -22,8 +22,6 @@ The UCI Car Evaluation dataset, which I've included in `data/` in its original f
 
 - 1,728 cars: every possible combination of the six attributes, appearing once each
 
-`car.data` has no header row, so it is loaded with `header=None` and the column names are supplied from `car.names`.
-
 ## How it works
 
 The system is split into a **knowledge base** and an **inference engine**:
@@ -51,19 +49,19 @@ The rules are structured as follows:
 - Macro-F1: 0.97
 
 **Individual F1s**:
-unacc: 0.99
-acc: 0.95
-good: 1.00
-vgood: 0.96
+-unacc: 0.99
+-acc: 0.95
+-good: 1.00
+-vgood: 0.96
 
 All remaining mistakes are cars rated **acc** (the default) that are really unacc (33) or vgood (5). The system never rejects an acceptable car, never rates a car good or vgood when it isn't, and never confuses the extremes: no unacceptable car is rated good or vgood, and no good or vgood car is rejected.
 
 ## Files
 
-**main.py** Loads the data, runs the baseline and the rule-based system, prints the results 
-**rules.py** The knowledge base (rules) and inference engine 
-**baseline.py** Baseline classifier: always predicts the most common class 
-**accuracy.py** Accuracy, confusion matrix, and precision/recall/F1 
-**data/** The original dataset files 
-**notes.md** Development notes: version history and how each rules were found 
+-**main.py** Loads the data, runs the baseline and the rule-based system, prints the results 
+-**rules.py** The knowledge base (rules) and inference engine 
+-**baseline.py** Baseline classifier: always predicts the most common class 
+-**accuracy.py** Accuracy, confusion matrix, and precision/recall/F1 
+-**data/** The original dataset files 
+-**notes.md** Development notes: version history and how each rules were found 
 
