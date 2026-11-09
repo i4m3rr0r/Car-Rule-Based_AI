@@ -58,10 +58,14 @@ All remaining mistakes are cars rated **acc** (the default) that are really unac
 
 ## Files
 
--**main.py** Loads the data, runs the baseline and the rule-based system, prints the results 
--**rules.py** The knowledge base (rules) and inference engine 
--**baseline.py** Baseline classifier: always predicts the most common class 
--**accuracy.py** Accuracy, confusion matrix, and precision/recall/F1 
--**data/** The original dataset files 
--**notes.md** Development notes: version history and how each rules were found 
+**main.py** 
+-Loads the data, runs the baseline and the rule-based system, prints the results 
+**rules.py** 
+-The knowledge base (rules) and inference engine 
+**baseline.py** 
+-Baseline classifier: always predicts the most common class 
+**accuracy.py** 
+-Accuracy, confusion matrix, and precision/recall/F1 
+**data/** 
+-The original dataset files 
 
