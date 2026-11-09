@@ -40,16 +40,16 @@ RULES = [
 
 DEFAULT = 'acc'
 
-''' Matching the rules to the car '''
 def ruleMatches(car, conditions):
+    ''' Matching the rules to the car '''
     for feature, allowed in conditions.items():
         if car[feature] not in allowed:
             return False
     
     return True
 
-''' Iterate through rules to classify '''
 def classify(car):
+    ''' Iterate through rules to classify '''
     for rule in RULES:
         if ruleMatches(car, rule['if']):
             return rule['then'], rule['name']

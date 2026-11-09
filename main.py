@@ -6,7 +6,7 @@ from baseline import baselineClassify
 
 from accuracy import evaluateAccuracy, createConfusionMatrix, classMetrics
 
-from rules import classify
+from rules import classify, RULES
 
 # Defining columns as a constant
 COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classification']
@@ -14,30 +14,32 @@ COLUMNS = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'classif
 # Class values as constants for the confusion matrix
 CLASSIFICATION_VALUES = ['unacc', 'acc', 'good', 'vgood']
 
-''' Data file has no headers, so here we load the file and initialise column names ourselves '''
 def loadData(path):
+    ''' Data file has no headers, so here we load the file and initialise column names ourselves '''
+    
     #Read car data into pandas
     
     return pd.read_csv(path, header = None, names=COLUMNS)
 
-''' Used for testing '''
+
 
 def carsSummary(cars):
-    #rows + columns count
+    ''' Used for testing '''
+    # rows + columns count
     print("Shape: ", cars.shape)
         
-    #print first five
+    # print first five
     print(cars.head())
         
-    #how many in each class
+    # how many in each class
     print(cars["classification"].value_counts())
         
-    #check how class corresponds to safety (as one example)
+    # check how class corresponds to safety (as one example)
     print(pd.crosstab(cars["safety"], cars["classification"]))
     
 
-""" Print accuracy, confusion matrix and per-class metrics """
 def printResults(name, actual, predicted):
+    ''' Print accuracy, confusion matrix and per-class metrics '''
     print(f'\n===== {name} =====')
     accuracy = evaluateAccuracy(actual, predicted)
     print(f'Accuracy: {accuracy:.1f}%')
@@ -48,8 +50,9 @@ def printResults(name, actual, predicted):
     print(f"Macro-F1: {metrics['f1'].mean():.2f}")
 
 
-""" Show what the cars the system gets wrong have in common. Example: actualClass='vgood' looks at vgood cars that were wrongly predicted as acc """
+
 def analyseMistakes(cars, predictions, actualClass, predictedClass='acc'):
+    ''' Show what the cars the system gets wrong have in common. Example: actualClass='vgood' looks at vgood cars that were wrongly predicted as acc '''
     # Improved with help from Claude (Anthropic)
     # Prompt: Help me with creating function that shows what the incorrect classifications have in common. 
     
@@ -100,8 +103,11 @@ if __name__ == '__main__':
     # Rule coverage: how many cars each rule handled, and their real classes
      
     print('\n===== Rule coverage =====')
-    print(pd.crosstab(pd.Series(rulesMatched, name='rule'),
-                      pd.Series(actualClassifications, name='actual')))
+    ruleOrder = [rule['name'] for rule in RULES] + ['default']
+    coverage = pd.crosstab(pd.Series(rulesMatched, name='rule'),
+                           pd.Series(actualClassifications, name='actual'))
+    coverage = coverage.reindex(index=ruleOrder, columns=CLASSIFICATION_VALUES, fill_value=0)
+    print(coverage)
     
     
     

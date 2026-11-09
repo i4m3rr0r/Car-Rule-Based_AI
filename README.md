@@ -1,4 +1,4 @@
-# Car Evaluation: Rule-Based AI ::: CPU5006 Artificial Intelligence, Assessment S1.
+# Car Evaluation: Rule-Based AI - CPU5006 Artificial Intelligence, Assessment S1.
 
 A rule-based system that rates how acceptable a car is to a buyer (**unacc**, **acc**, **good** or **vgood**) from six attributes: buying price, maintenance cost, number of doors, passenger capacity, boot size and safety.
 
@@ -14,7 +14,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-This prints the results for the baseline and for the rule-based system: accuracy, a confusion matrix, precision/recall/F1 for each class, and macro-F1. It then prints the rule coverage; how many rules fired for each class.
+This prints the results for the baseline and for the rule-based system: accuracy, a confusion matrix, precision/recall/F1 for each class, and macro-F1. It then prints the rule coverage; how many cars each rule handled.
 
 ## Dataset
 
@@ -26,12 +26,12 @@ The UCI Car Evaluation dataset, which I've included in `data/` in its original f
 
 ## How it works
 
-The system is split into, **Rules** and an **inference engine**:
+The system is split into a **knowledge base** and an **inference engine**:
 
-- **RULES** in `rules.py`): 17 rules stored as data. Each rule has a name, its conditions and its result.
+- **knowledge base** (`RULES` in `rules.py`): 17 rules stored as data. Each rule has a name, its conditions and its result.
   - Conditions on different attributes must all be true (AND).
   - Several values listed for one attribute means any of them is fine (OR).
-- **Inference engine** (`ruleMatches` and `classify` in `rules.py`): checks the rules in order and the **first rule that matches decides the class**. If no rule matches, the car is rated **acc** (the default).
+- **Inference engine** (`ruleMatches` and `classify` in `rules.py`): checks the rules in order and the **first rule that matches decides the class**. If no rule matches, the car is rated **acc**.
 
 The rules are structured as follows:
 
@@ -43,14 +43,14 @@ The rules are structured as follows:
 ## Results
 
 **Baseline** (always unacc) :
-Accuracy: 70%
-Macro-F1: 0.21
+- Accuracy: 70%
+- Macro-F1: 0.21
 
 **Rule-based System** :
-Accuracy: 97.8%
-Macro-F1: 0.97
+- Accuracy: 97.8%
+- Macro-F1: 0.97
 
-* *Individual F1s* *:
+**Individual F1s**:
 unacc: 0.99
 acc: 0.95
 good: 1.00

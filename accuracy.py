@@ -1,8 +1,8 @@
 import pandas as pd
 
-''' Function to check base accuracy of the AI '''
 
 def evaluateAccuracy(actual, predicted):
+    ''' Function to check base accuracy of the AI '''
     correct = 0
     
     for x in range(0, len(actual)):
@@ -14,8 +14,9 @@ def evaluateAccuracy(actual, predicted):
     return accuracy
 
 
-''' Confusion matrix helps visualise, and check how accurate the AI is across all classes '''
+
 def createConfusionMatrix(actual, predicted, classes):
+    ''' Confusion matrix helps visualise, and check how accurate the AI is across all classes '''
     
     matrix = pd.crosstab(actual, predicted, rownames=['actual'], colnames=['predicted'])
     matrix = matrix.reindex(index = classes, columns = classes, fill_value=0)
@@ -23,11 +24,11 @@ def createConfusionMatrix(actual, predicted, classes):
     return matrix
 
 
-# Developed with help from Claude {Anthropic}.
+# Developed with help from Claude (Anthropic).
 # Prompt: 'help me write a function to calculate precision, recall and F1 for each class from the confusion matrix
 
 def classMetrics(matrix, classes):
-    # Work out precision, recall and F1 for each class from the confusion matrix.
+    ''' Work out precision, recall and F1 for each class from the confusion matrix '''
     results = []
 
     for cls in classes:
