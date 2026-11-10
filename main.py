@@ -95,7 +95,7 @@ if __name__ == '__main__':
     printResults('Rule-based system', actualClassifications, rulePredictions)
     
     # Used during development to find new rules, e.g 5 vgood cars still missed:
-    analyseMistakes(cars, rulePredictions, 'vgood')
+    # analyseMistakes(cars, rulePredictions, 'vgood')
     
     
     # Developed with help from Claude (Anthropic).
